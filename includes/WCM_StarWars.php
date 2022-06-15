@@ -1,6 +1,6 @@
 <?php
 
-class WCM_StarWars {
+class WCMStarWars {
 
      // Options sida, där man ska kunna kopiera in API URL,
      // och skriva people, så får man ut people.
@@ -9,5 +9,30 @@ class WCM_StarWars {
      // ex. namn height mass skin color, etc etc.
      // Hämta data från APIet och skapa karaktärer.
 
-}
+    // Spara URL och gör anrop till:
+    protected string $apiURL = 'https://swapi.dev/api/';
 
+    public function __construct() {
+       $this->addMenuPage();
+    }
+
+    public function addMenuPage() {
+        add_action('admin_menu', [$this, 'setUpOptionsPage']);
+    }
+     
+    public function setUpOptionsPage() {
+        add_menu_page(
+            'Star Wars API',
+            'Star Wars Settings',
+            'manage_options',
+            'star_wars_settings',
+            [$this, 'create_sw_menu_page'],
+            'dashicons-document',
+            20
+        );
+    }
+
+    public function create_sw_menu_page() {
+        include_once plugin_dir_path(__FILE__) . '../partials/sw_menu_page.php';
+    }
+}
