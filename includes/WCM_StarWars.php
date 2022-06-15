@@ -38,7 +38,7 @@ class WCMStarWars {
     public function create_sw_menu_page() {
         $apiCall = wp_remote_get($this->apiURL . 'people');
         $characters = json_decode(wp_remote_retrieve_body($apiCall));
-        
+
         include_once plugin_dir_path(__FILE__) . '../partials/sw_menu_page.php';
     }
 }
