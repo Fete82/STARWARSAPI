@@ -18,7 +18,7 @@
 </div>
 -->
 <p><?php echo $didAPICALL; ?></p>
-<p><?php echo 'hello'?></p>
+<strong><p id="sw_message"></p></strong>
     <?php foreach ($characters->results as $character) : ?>
 
         <div>
