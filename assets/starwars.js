@@ -7,7 +7,7 @@ function submitFormAjax(event){
 
     event.preventDefault();
 
-    const url = event.target.getAttribute('action');
+    const url = event.currentTarget.getAttribute('action');
     const formData = new FormData(event.target);
 
     fetch(url, {

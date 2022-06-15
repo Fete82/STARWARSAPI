@@ -18,6 +18,7 @@
 </div>
 -->
 <p><?php echo $didAPICALL; ?></p>
+<p><?php echo 'hello'?></p>
     <?php foreach ($characters->results as $character) : ?>
 
         <div>
