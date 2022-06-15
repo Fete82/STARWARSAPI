@@ -85,7 +85,10 @@ class WCMStarWars
         $apiCall = wp_remote_get($_POST['url']);
         $character = json_decode(wp_remote_retrieve_body($apiCall));
 
+        $existingPost = post_exists($character->name);
+
         $newPost = wp_insert_post([
+            'ID' => $existingPost,
             'post_title' => $character->name,
             'post_type' => 'sw_character',
             'meta_input' => [
