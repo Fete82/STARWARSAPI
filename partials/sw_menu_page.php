@@ -22,7 +22,7 @@
 
         <div>
             <p><?php echo $character->name ?><button>Import</button></p>
-            <form action="<?php echo admin_url('admin-ajax.php') ?>" method="post">
+            <form action="<?php echo admin_url('admin-ajax.php') ?>" method="post" class="sw_import_form">
                 <?php wp_nonce_field('wcm_sw_nonce', 'nonce') ?>
                 <input type="hidden" name="url" value="<?php echo $character->url; ?>" />
             </form>
