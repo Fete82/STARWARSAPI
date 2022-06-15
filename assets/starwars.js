@@ -1,18 +1,23 @@
-const submittedForm = document.querySelector('.sw_import_form');
-
-submittedForm.addEventListener('submit', submitFormAjax);
+const submittedForms = document.querySelectorAll('.sw_import_form');
+submittedForms.forEach(function(form){
+    form.addEventListener('submit', submitFormAjax);
+})
 
 function submitFormAjax(event){
 
     event.preventDefault();
 
-    const formData = new FormData(submittedForm);
+    const url = event.target.getAttribute('action');
+    const formData = new FormData(event.target);
 
-    console.log(event);
-    /*
-    fetch()
-        .then()
-        .then()
+    fetch(url, {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(body => {
+            console.log(body);
+        })
         .catch()
-    */
+
 }

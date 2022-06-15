@@ -71,15 +71,41 @@ class WCMStarWars
 
     protected function addAjaxHandles()
     {
-        add_action('wp_ajax_wc_sw_handle_form', [$this, 'handle_form']);
-        add_action('wp_ajax_nopriv_wc_sw_handle_form', [$this, 'handle_form']);
+        add_action('wp_ajax_wc_sw_handle_form', [$this, 'handleForm']);
+        add_action('wp_ajax_nopriv_wc_sw_handle_form', [$this, 'handleForm']);
     }
 
     public function handleForm()
     {
-        //hämta post data
-        //gör api anrop
-        //skapa ny post av typen 'character':
+        if (!wp_verify_nonce($_POST['nonce'], 'wcm_sw_nonce')) {
+            wp_send_json_error('Något gick fel!', 401);
+            exit();
+        }
 
+        $apiCall = wp_remote_get($_POST['url']);
+        $character = json_decode(wp_remote_retrieve_body($apiCall));
+
+        $newPost = wp_insert_post([
+            'post_title' => $character->name,
+            'post_type' => 'sw_character',
+            'meta_input' => [
+                '_birthdate' => $character->birth_year,
+                '_eye_color' => $character->eye_color,
+                '_height' => $character->height,
+            ],
+        ]);
+
+        if (! is_wp_error($newPost)) {
+            wp_send_json_success([
+                'status' => 'success',
+                'message' => 'Karaktär har lagts till korrekt!'
+            ]);
+        } else {
+
+            wp_send_json_error([
+                'status' => 'error',
+                'message' => 'Något gick sämst'
+            ]);
+        }
     }
 }
