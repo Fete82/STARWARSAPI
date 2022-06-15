@@ -15,6 +15,7 @@ class WCMStarWars
 
     public function __construct()
     {
+        $this->addScripts();
         $this->addMenuPage();
     }
 
@@ -44,7 +45,7 @@ class WCMStarWars
         $characters = get_transient('wcm_sw_character_list');
         $didAPICALL = 'Transient set successfully';
 
-        if(!$characters) {
+        if (!$characters) {
             $apiCall = wp_remote_get($this->apiURL . 'people');
             $characters = json_decode(wp_remote_retrieve_body($apiCall));
             // Define $didAPICALL as 'transient not set' if the transient is not set at this point
@@ -53,5 +54,16 @@ class WCMStarWars
         }
 
         include_once plugin_dir_path(__FILE__) . '../partials/sw_menu_page.php';
+    }
+
+    protected function addScripts()
+    {
+        add_action('init', [$this, 'enqueueScripts']);
+    }
+
+    public function enqueueScripts()
+    {
+        wp_register_script('wcm_sw_script', plugins_url('../assets/starwars.js', __FILE__), [], '1.0', 'true');
+        wp_enqueue_script('wcm_sw_script');
     }
 }

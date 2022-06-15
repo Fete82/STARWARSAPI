@@ -4,9 +4,11 @@ submittedForm.addEventListener('submit', submitFormAjax);
 
 function submitFormAjax(event){
 
+    event.preventDefault();
+
     const formData = new FormData(submittedForm);
 
-    console.log(formData);
+    console.log(event);
     /*
     fetch()
         .then()
