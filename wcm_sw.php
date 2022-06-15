@@ -20,7 +20,9 @@
 }
 
 require plugin_dir_path( __FILE__ ) . 'includes/WCM_StarWars.php';
+require plugin_dir_path( __FILE__ ) . 'includes/WCM_SW_PostTypes.php';
 function runWcmSW() {
+    new WCM_SW_PostTypes();
     $wcm_sv = new WCMStarWars();
 }
 runWcmSW();
