@@ -24,7 +24,8 @@
             <p><?php echo $character->name ?></p>
             <form action="<?php echo admin_url('admin-ajax.php') ?>" method="post" class="sw_import_form">
                 <?php wp_nonce_field('wcm_sw_nonce', 'nonce') ?>
-                <input type="hidden" name="url" value="<?php echo $character->url; ?>" />
+                <input type="hidden" name="url" value="<?php echo $character->url; ?>"/>
+                <input type="hidden" name="action" value="wc_sw_handle_form"/>
                 <button type="submit">Import</button>
             </form>
         </div>
