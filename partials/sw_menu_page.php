@@ -17,18 +17,15 @@
     </form>
 </div>
 -->
-<?php
+<p><?php echo $didAPICALL; ?></p>
+    <?php foreach ($characters->results as $character) : ?>
 
-foreach ($characters->results as $character) : ?>
-
-    <div>
-        <p><?php echo $character->name ?></p>
-        <form action="<?php echo admin_url('admin-ajax.php') ?>" method="post">
-            <?php wp_nonce_field('wcm_sw_nonce', 'nonce')?>
-            <input type="hidden" name="url" value="<?php echo $character->url;?>">
-            <button>Import</button>
-        </form>
-    </div>
-
-<?php endforeach;
-?>
+        <div>
+            <p><?php echo $character->name ?><button>Import</button></p>
+            <form action="<?php echo admin_url('admin-ajax.php') ?>" method="post">
+                <?php wp_nonce_field('wcm_sw_nonce', 'nonce') ?>
+                <input type="hidden" name="url" value="<?php echo $character->url; ?>" />
+            </form>
+        </div>
+    <?php endforeach;
+    ?>
