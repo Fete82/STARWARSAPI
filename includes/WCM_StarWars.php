@@ -2,7 +2,6 @@
 
 class WCMStarWars
 {
-
     // Options sida, där man ska kunna kopiera in API URL,
     // och skriva people, så får man ut people.
     // Custom Post Type (CPT) för karaktärerna
@@ -36,9 +35,6 @@ class WCMStarWars
             'dashicons-document',
             20
         );
-
-        // Anrop till API i options
-
     }
 
     public function create_sw_menu_page()
@@ -57,7 +53,7 @@ class WCMStarWars
         include_once plugin_dir_path(__FILE__) . '../partials/sw_menu_page.php';
     }
 
-    // ADD SCRIPTS AND ENQUEUEUEUUEUEUE
+    // REGISTER SCRIPTS AND ENQUEUEUEUUEUEUE
     protected function addScripts()
     {
         add_action('init', [$this, 'enqueueScripts']);
@@ -95,19 +91,19 @@ class WCMStarWars
                 '_birthdate' => $character->birth_year,
                 '_eye_color' => $character->eye_color,
                 '_height' => $character->height,
+                '_skin_color' => $character->skin_color,
             ],
         ]);
 
         if (! is_wp_error($newPost)) {
             wp_send_json_success([
                 'status' => 'success',
-                'message' => 'Karaktär har lagts till korrekt!'
+                'message' => 'Karaktär tillagd under Characters',
             ]);
         } else {
-
             wp_send_json_error([
                 'status' => 'error',
-                'message' => 'Något gick sämst'
+                'message' => 'Något gick fel!'
             ]);
         }
     }

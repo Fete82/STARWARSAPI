@@ -16,9 +16,9 @@ function submitFormAjax(event){
     })
         .then(response => response.json())
         .then(body => {
-            console.log(body.data.message);
+            console.log(body);
+            // Prints message to <p> tag in admin page, to display status.
             const list = document.getElementById("sw_message");
-
             list.innerHTML = body.data.message;
         })
         .catch()
